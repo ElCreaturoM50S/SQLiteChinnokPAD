@@ -15,6 +15,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.Reflection;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media.Media3D;
 
 namespace SQLiteChinnokPAD
 {
@@ -27,38 +31,50 @@ namespace SQLiteChinnokPAD
         public MainWindow()
         {
             InitializeComponent();
-            CheckDatabaseConnection();
         }
 
-        private void CheckDatabaseConnection()
+
+        public void CheckDatabaseConnection(string Name)
         {
-            string xd = "E:/Zapisy/C#/Test/SQLiteChinnokPAD/SQLiteChinnokPAD/chinook.db";
-            
-            var connection = new SQLiteConnection($"Data Source={xd}");
+            string xd = "D:/Zapisy/Git_Repositorys/SQLiteChinnokPAD/SQLiteChinnokPAD/chinook.db";
+            SQLiteConnection connection = new SQLiteConnection($"Data Source={xd}");
             connection.Open();
             Debug.WriteLine("Database is connected!");
 
-            string query = "SELECT * FROM genres";
+
+            string query = "SELECT * FROM "+ Name +" WHERE Name LIKE 'L%' INNER JOIN ";
+            //SELECT DISTINCT Name FROM playlist_track 
+            //INNER JOIN tracks ON tracks.TrackId = playlist_track.TrackId
+            //LIMIT 25
 
             using (var command = new SQLiteCommand(query,connection))
             {
                 using (var reader = command.ExecuteReader())
                 {
-                    //List<Genres> genres = new List<Genres>();
 
-                    while (reader.Read())
-                    {
-                        Debug.WriteLine(reader);
-                        Debug.WriteLine(reader["Name"]);
-                    }
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    TabItem tabItem = (TabItem)Jajo.SelectedItem;
+                    DataGrid dataGrind = (DataGrid)tabItem.FindName(Name + "Data");
+                    dataGrind.ItemsSource = dataTable.DefaultView;
                 }
             }
         }
-    }
 
-    public class Genres
-    {
-        public int GenreId { get; set; }
-        public string ?Name { get; set; }
+        public void btnSelectedTab_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem JajoItem = (TabItem)Jajo.SelectedItem;
+            if (JajoItem != null)
+            {
+                string stringowicz = JajoItem.Header.ToString();
+                if (stringowicz != null)
+                {
+                    MessageBox.Show("Selected tab: " + JajoItem.Header);
+                    CheckDatabaseConnection(stringowicz);
+                }
+                
+            }
+            
+        }
     }
 }

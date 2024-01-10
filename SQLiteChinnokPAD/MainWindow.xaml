@@ -6,7 +6,51 @@
         xmlns:local="clr-namespace:SQLiteChinnokPAD"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
-        <DataGrid Name="dataGrid" AutoGenerateColumns="True" />
+        <TabControl Name="Jajo">
+            <TabItem Header="albums">
+                <DataGrid Name="albumsData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="artists">
+                <DataGrid Name="artistsData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="customers">
+                <DataGrid Name="customersData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="employees">
+                <DataGrid Name="employeesData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="genres">
+                <DataGrid Name="genresData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="invoice_items">
+                <DataGrid Name="invoice_itemsData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="invoices">
+                <DataGrid Name="invoicesData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="media_types">
+                <DataGrid Name="media_typesData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="playlist_track">
+                <DataGrid Name="playlist_trackData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="playlist">
+                <DataGrid Name="playlistData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="sqlite_sequence">
+                <DataGrid Name="sqlite_sequenceData" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="sqlite_stat1">
+                <DataGrid Name="sqlite_stat1Data" AutoGenerateColumns="True" />
+            </TabItem>
+            <TabItem Header="tracks">
+                <DataGrid Name="tracksData" AutoGenerateColumns="True" />
+            </TabItem>
+        </TabControl>
+        <StackPanel Orientation="Vertical"  Margin="2,5" VerticalAlignment="Bottom">
+            <Button Name="btnLmao" Click="btnSelectedTab_Click" VerticalAlignment="Bottom" HorizontalAlignment="Center" RenderTransformOrigin="0.5,1">Load Data</Button>
+        </StackPanel>
     </Grid>
 </Window>
